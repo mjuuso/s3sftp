@@ -131,17 +131,10 @@ class S3SFTPServer(paramiko.SFTPServerInterface):
         return fobj
 
     def remove(self, path):
-        pass
+        return paramiko.SFTP_OP_UNSUPPORTED
 
     def mkdir(self, path, attr):
-        path = self._realpath(path)
-        try:
-            os.mkdir(path)
-            if attr is not None:
-                SFTPServer.set_file_attr(path, attr)
-        except OSError as e:
-            return SFTPServer.convert_errno(e.errno)
-        return SFTP_OK
+        return paramiko.SFTP_OP_UNSUPPORTED
 
     def rmdir(self, path):
         return paramiko.SFTP_OP_UNSUPPORTED
